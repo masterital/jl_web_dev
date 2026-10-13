@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sale & Invoice Sfrgrgrgrghow Product Image",
+    'name': "Sale & Invoic Product Image",
 
     'summary': """Sale & Invoice Show / Hide  Product Image""",
 
