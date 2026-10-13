@@ -9,7 +9,7 @@
 
     'author': 'ErpMstar Solutions',
     'category': 'Sales',
-    'version': '1.0',
+    'version': '1.1',
 
     # any module necessary for this one to work correctly
     'depends': ['sale_management'],
