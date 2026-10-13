@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_attendance_sheets">
+       <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <document page-count="1">
+                            <page number="1">
+                                <table class="table table-borderless" style="width:90%;font-size:14pt;">
+                                    <tr>
+                                        <td colspan="2" style="font-size: 18px; font-family: Arial; color:grey;">
+                                            Attendance Sheet
+                                        </td>
+                                        <td/>
+                                        <td colspan="2">
+                                            <p>Nga :
+                                                <b>
+                                                    <span t-field="o.date_from"/>
+                                                    -
+                                                    <span t-field="o.date_to"/>
+                                                </b>
+                                            </p>
+                                        </td>
+                                        <td/>
+                                    </tr>
+                                    <br/>
+                                    <tr>
+                                        <td style="border-bottom: 2px solid black">Employee:</td>
+                                        <td style="border-bottom: 2px solid black">
+                                            <b>
+                                                <span t-field="o.employee_id"/>
+                                            </b>
+                                        </td>
+                                        <td style="padding-right:80px;"/>
+                                        <td style="border-bottom: 2px solid black">
+                                            <span>ID:</span>
+                                        <b>
+                                                <span t-field="o.employee_id.identification_id"/>
+                                            </b>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr/>
+                                    <tr>
+                                        <td style="border-bottom: 2px solid black">Job Position:</td>
+                                        <td style="border-bottom: 2px solid black">
+                                            <b>
+                                                <span t-field="o.employee_id.job_id"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td/>
+                                        <td/>
+                                        <td colspan="2"/>
+                                        <td colspan="2"/>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                </table>
+                                <p> </p>
+                                <table style="border-collapse: collapse; font-size:12pt;width:100%;padding:10px;">
+                                    <tr style="background-color: #29a2a0 ;border:0; width:90%">
+                                        <td style="text-align:center;color:white; width:10%;padding: 10px;">
+                                            <b>Dite</b>
+                                        </td>
+                                        <td style="text-align:center;color:white; width:10%;padding: 10px;">
+                                            <b>Date</b>
+                                        </td>
+                                        <td style="text-align:center;color:white; width:10%;padding: 10px;">
+                                            <b>Ore Hyrje</b>
+                                        </td>
+                                        <td style="text-align:center;color:white; width:10%;padding: 10px;">
+                                            <b>Ore Dalje</b>
+                                        </td>
+                                        <td style="text-align:center;color:white; width:10%;padding: 10px;">
+                                            <b>Pushim (min)</b>
+                                        </td>
+                                        <td style="text-align:center;color:white;padding: 4px;">
+                                            <b>Ore Efektive Pune</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                    <t t-foreach="o.attendance_ids" t-as="l">
+                                         <t t-if="l.check_in and l.check_in.weekday() in (0,1,2,3,4)">
+                                            <tr>
+                                                <td style="padding:10px;width:10%;">
+                                                   <span t-esc="l.check_in.strftime('%A')"/> <!-- Dita e Javes -->
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_in.strftime('%d/%m/%Y')"/>
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_in" t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;HH:mm:ss&quot;}"/>
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_out" t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;HH:mm:ss&quot;}"/>
+                                                </td>
+
+                                                
+                                                <td style="text-align:center;padding:10px;width:10%;">
+                                                    <span>0:30</span>  
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:50%;">
+                                                    <span t-field="l.worked_hours" t-options="{&quot;widget&quot;: &quot;float_time&quot;}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                       <t t-if="l.check_in and l.check_in.weekday() in (5, 6)">
+                                            <tr style="background-color:#b2dbef; width:100%">
+                                                <td style="padding:10px;width:10%;">
+                                                    <span t-esc="l.check_in.strftime('%A')"/> <!-- Saturday -->
+                                                </td>
+                                    
+                                               <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_in.strftime('%d/%m/%Y')"/>
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_in" t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;HH:mm:ss&quot;}"/>
+                                                </td>
+                                                
+                                                <td style="text-align:center;padding:10px;width:20%;">
+                                                    <span t-esc="l.check_out" t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;format&quot;: &quot;HH:mm:ss&quot;}"/>
+                                                </td>
+
+                                    
+                                                <td style="text-align:center;padding:10px;width:10%;">
+                                                    <span>0:00</span>  
+                                                </td>
+                                    
+                                                <td style="text-align:center;padding:10px;width:50%;">
+                                                    <span t-field="l.worked_hours" t-options="{&quot;widget&quot;: &quot;float_time&quot;}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr style="width:100%; background-color: #29a2a0;">
+                                        <td style="color:white;">
+                                            <p>
+                                                <b>Total</b>
+                                            </p>
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td style="text-align: center;color:white;">
+                                            <b>
+                                                <span t-esc="round(o.sum_worked_hours, 2)"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr/>
+                                    <tr/>
+                                </table>
+                                <div style="page-break-after: always;"/>
+                                <p style="font-size:5pt;"> </p>
+                                <table style="width:90%; font-size:14pt; margin-left:5% !important;">
+                                    <tr>
+                                        <td style="border-bottom:2px dotted black;">Totali i ditëve të punuara</td>
+                                        <td style="border-bottom:2px dotted black;color:transparent">Ditë</td>
+                                        <td style="border-bottom:2px dotted black;text-align: right;">
+                                            <span t-esc="o.attendance_count"/>
+                                        </td>
+                                        <td style="color:transparent">Work Hours</td>
+                                        <td style="color:transparent">Work Hours</td>
+                                        <td style="color:transparent">Work Hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom:2px dotted black;">Totali i orëve të punuara</td>
+                                        <td style="border-bottom:2px dotted black;color:transparent">Orë</td>
+                                        <td style="border-bottom:2px dotted black;text-align: right;">
+                                            <span t-esc="round(o.sum_worked_hours, 2)"/>
+                                        </td>
+                                        <td style="color:transparent">Work Hours</td>
+                                        <td style="color:transparent">Work Hours</td>
+                                        <td style="color:transparent">Work Hours</td>
+                                    </tr>
+                                    
+                                    
+                                    <!-- <tr style="font-size:15pt">
+                                        <td style="color:white;font-size:15pt; background-color:#29a2a0">
+                                            <b>Totali për t'u marrë</b>
+                                        </td>
+                                        <td style="background-color:#29a2a0;">    </td>
+                                        <td style="text-align: right;color:white;font-size:15pt; background-color:#29a2a0;">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(sum(line.amount for line in o.worked_days_line_ids))"/>
+                                            </b>
+                                        </td>
+                                        <td style="color:transparent;">Work Hours</td>
+										<td style="color:transparent;">Work Hours</td>
+                                        <td style="color:transparent;">Work Hours</td>
+                                    </tr> -->
+									 <!-- <tr>
+                                        <td style="border-bottom:2px dotted black;">
+                                            <b>Pagë në Bankë</b>
+                                        </td>
+                                        <td style="border-bottom:2px dotted black;color:transparent">Lekë</td>
+                                        <td style="border-bottom:2px dotted black;text-align: right;">
+                                            <b>
+                                                -<span t-esc="'{:,.0f}'.format(o.employee_id.contract_id.paga_ne_banke)"/>
+                                            </b>
+                                        </td>
+                                        <td style="color:transparent">Work Hours</td>
+                                        <td>
+                                            <p>____________________</p>
+                                        </td>
+                                        <td style="color:transparent">Work Hours</td>
+                                    </tr> -->
+									<!-- <tr style="font-size:15pt">
+                                        <td style="color:white;font-size:15pt; background-color:#29a2a0">
+                                            <b>Për t'u marrë</b>
+                                        </td>
+                                        <td style="background-color:#29a2a0;">    </td>
+                                        <td style="text-align: right;color:white;font-size:15pt; background-color:#29a2a0;">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(sum(line.amount for line in o.worked_days_line_ids) - o.employee_id.contract_id.paga_ne_banke)"/>
+                                            </b>
+                                        </td>
+										<td style="color:transparent;">Work Hours</td>
+                                        <td style="color:grey;text-align:left;">( nënshkrimi )</td>
+                                        <td style="color:transparent;">Work Hours</td>
+                                    </tr> -->
+                                </table>
+                            </page>
+                        </document>
+                    </div>
+                </t>
+                <div class="footer">
+                    <p style="text-align:right;">Printuar nga :<span t-field="user.id"/>,
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S')"/>
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_custom_invoice" model="ir.actions.report">
+        <field name="name">Attendance Sheet Serena</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">standarti.report_attendance_sheets</field>
+        <field name="report_file">standarti.report_attendance_sheets</field>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

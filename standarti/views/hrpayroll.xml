@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="view_hr_form_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form.inherit.update.amount</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@name='information']" position="inside">
+                    <group name="calcuation_hour" string="%Llograit sipas Standartit per shtesen e oreve">
+                        <field name="add_standart" string="Standarti %kufiri%"/>
+                        <field name="add_extra" widget="monetary" string="Vleresimi i Oreve /Hourly"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='information']/group[@name='salary_info']/group[@name='salary']/div[@name='hourly_wage']"
+                       position="after">
+                    <field name="paga_ne_banke" widget="monetary"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_hr_payslip_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.inherit.update.amount</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[@name='worked_days_input']//tree" position="inside">
+                    <field name="custom_bool" column_invisible="True"/>
+                </xpath>
+
+                <xpath expr="//notebook//page[@name='account_info']//field[@name='name']" position="after">
+                    <field name="paga_ne_banke" widget="monetary"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <button string="Attendance Sheet" name="standarti.action_report_custom_invoice" type="action"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
